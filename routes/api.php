@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\AdminController;
 use App\Http\Controllers\api\PostController;
 use App\Http\Controllers\api\UserController;
+use App\Http\Controllers\api\CommentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,13 @@ Route::get('post', [PostController::class, 'getAllPosts']);
 Route::get('post/{postId}', [PostController::class, 'getPost']);
 Route::put('post/{postId}', [PostController::class, 'updatePost']);
 Route::delete('post/{postId}', [PostController::class, 'deletePost']);
+
+// Comment endpoints
+Route::post('comment', [CommentController::class, 'createComment']);
+Route::get('comment', [CommentController::class, 'getAllComments']);
+Route::get('comment/{commentId}', [CommentController::class, 'getComment']);
+Route::put('comment/{commentId}', [CommentController::class, 'updateComment']);
+Route::delete('comment/{commentId}', [CommentController::class, 'deleteComment']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
