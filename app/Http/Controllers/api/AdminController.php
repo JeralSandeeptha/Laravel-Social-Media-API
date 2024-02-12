@@ -142,7 +142,7 @@ class AdminController extends Controller
                     $admin->delete();
                     return response()->json([
                         'statusCode' => 204,
-                        'message' => 'Delete query was successful',
+                        'message' => 'Delete admin query was successful',
                     ], 204);
                 } else {
                     return response()->json([
