@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -156,6 +157,7 @@ class PostController extends Controller
     
                 if($post) {
                     $post->delete();
+                    $comments = Comment::where('postId', $postId)->delete();
                     return response()->json([
                         'statusCode' => 204,
                         'message' => 'Delete post query was successful',

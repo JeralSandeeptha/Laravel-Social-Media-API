@@ -27,12 +27,15 @@ Route::post('post', [PostController::class, 'createPost']);
 Route::get('post', [PostController::class, 'getAllPosts']);
 Route::get('post/{postId}', [PostController::class, 'getPost']);
 Route::put('post/{postId}', [PostController::class, 'updatePost']);
+Route::put('post/like/{postId}', [PostController::class, 'likePost']);
+Route::put('post/dislike/{postId}', [PostController::class, 'dislikePost']);
 Route::delete('post/{postId}', [PostController::class, 'deletePost']);
 
 // Comment endpoints
 Route::post('comment', [CommentController::class, 'createComment']);
 Route::get('comment', [CommentController::class, 'getAllComments']);
 Route::get('comment/{commentId}', [CommentController::class, 'getComment']);
+Route::get('comment/getCommentsByPostId/{postId}', [CommentController::class, 'getCommentsByPostId']);
 Route::put('comment/{commentId}', [CommentController::class, 'updateComment']);
 Route::delete('comment/{commentId}', [CommentController::class, 'deleteComment']);
 

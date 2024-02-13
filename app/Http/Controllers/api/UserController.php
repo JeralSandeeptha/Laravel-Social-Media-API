@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -149,6 +151,8 @@ class UserController extends Controller
     
                 if($user) {
                     $user->delete();
+                    Post::where('userId', $userId)->delete();
+                    Comment::where('userId', $userId)->delete();
                     return response()->json([
                         'statusCode' => 204,
                         'message' => 'Delete user query was successful',

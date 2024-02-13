@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -60,6 +61,31 @@ class CommentController extends Controller
             return response()->json([
                 'statusCode' => 500,
                 'message' => 'Get all comments query was failed',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function getCommentsByPostId($postId) {
+        try {
+            $post = Post::find($postId);
+            if($post) {
+                $comments = Comment::where('postId', $postId)->get();
+                return response()->json([
+                    'statusCode' => 200,
+                    'message' => 'Get all comments by postId query was successfully',
+                    'data' => $comments,
+                ], 200);
+            }else {
+                return response()->json([
+                    'statusCode' => 404,
+                    'message' => 'Post id not found',
+                ], 404);
+            }
+        }catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'message' => 'Get all comments by postId query was failed',
                 'error' => $e->getMessage(),
             ], 500);
         }
