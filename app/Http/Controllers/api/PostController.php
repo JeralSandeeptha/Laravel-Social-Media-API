@@ -182,4 +182,95 @@ class PostController extends Controller
             ], 500);
         }
     }
+
+    public function likePost(Request $request) {
+        try {
+            $postId = $request->route('postId');
+            $userId = $request->route('userId');
+
+            $post = Post::find($postId);
+            
+            // Check if $post is null
+            if (!$post) {
+                return response()->json([
+                    'statusCode' => 404,
+                    'message' => 'Post not found',
+                ], 404);
+            }
+    
+            if (!$userId) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'message' => 'Invalid user ID',
+                ], 400);
+            }
+    
+            $likes_array = $post->likes ?? [];
+            $likes_array[] = $userId;
+            $post->likes = $likes_array;
+            $post->save();
+    
+            return response()->json([
+                'statusCode' => 201,
+                'message' => 'Post liked successfully',
+                'data' => $post,
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'message' => 'Failed to like post',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
+    public function dislikePost($userId, $postId) {
+        try {
+            $post = Post::find($postId);
+            
+            if (!$post) {
+                return response()->json([
+                    'statusCode' => 404,
+                    'message' => 'Post not found',
+                ], 404);
+            }
+    
+            if (!$userId) {
+                return response()->json([
+                    'statusCode' => 400,
+                    'message' => 'Invalid user ID',
+                ], 400);
+            }
+    
+            $likes_array = $post->likes ?? [];
+    
+            // Check if user has already liked the post
+            if (in_array($userId, $likes_array)) {
+                // User has liked the post, proceed with unlike operation
+                $key = array_search($userId, $likes_array);
+                unset($likes_array[$key]);
+                $post->likes = $likes_array;
+                $post->save();
+    
+                return response()->json([
+                    'statusCode' => 200,
+                    'message' => 'Post unliked successfully',
+                    'data' => $post,
+                ], 200);
+            } else {
+                // User has not liked the post, return response
+                return response()->json([
+                    'statusCode' => 400,
+                    'message' => 'User has not liked this post',
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'statusCode' => 500,
+                'message' => 'Failed to unlike post',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+    
 }

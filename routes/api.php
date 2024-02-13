@@ -27,8 +27,8 @@ Route::post('post', [PostController::class, 'createPost']);
 Route::get('post', [PostController::class, 'getAllPosts']);
 Route::get('post/{postId}', [PostController::class, 'getPost']);
 Route::put('post/{postId}', [PostController::class, 'updatePost']);
-Route::put('post/like/{postId}', [PostController::class, 'likePost']);
-Route::put('post/dislike/{postId}', [PostController::class, 'dislikePost']);
+Route::put('post/like/{postId}/{userId}', [PostController::class, 'likePost']);
+Route::put('post/dislike/{postId}/{userId}', [PostController::class, 'dislikePost']);
 Route::delete('post/{postId}', [PostController::class, 'deletePost']);
 
 // Comment endpoints
