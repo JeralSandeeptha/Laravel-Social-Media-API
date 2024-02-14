@@ -1,3 +1,23 @@
+First we should start the mysql service or xammp server
+
+Create a new laravel project
+composer create-project laravel/laravel your-project-name
+
+Run the server
+php artisan serve
+
+Create migration file - (table name must be plural and create keyword)
+php artisan make:migration create_users_table
+
+migrate the table / create the database table
+php artisan migrate
+
+Create a Model
+php artisan make:model ModelName
+
+Create a Controller
+php artisan make:controller api/ControllerName
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
