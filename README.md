@@ -15,6 +15,9 @@ php artisan migrate
 Create a Model
 php artisan make:model ModelName
 
+To Access the Request and Response objects, we can customize them with below command.
+php artisan make:request YourRequestName
+
 Create a Controller
 php artisan make:controller api/ControllerName
 
